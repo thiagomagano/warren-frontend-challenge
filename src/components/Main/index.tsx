@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import TableTransactions, { Transactions } from "../TableTransactions";
-import ModalTransaction from "../ModalTransaction"
+
 
 import api from '../../service/api'
 
@@ -11,7 +11,7 @@ const Main = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('status')
 
-  const [show, setShow] = useState(false)
+
 
   async function getTransactions() {
     const response = await api.get('/')
@@ -50,8 +50,7 @@ const Main = () => {
           <option value="created">Concluida</option>
         </select>
 
-        <button onClick={() => setShow(true)}>Show Modal</button>
-        <ModalTransaction show={show} onClose={() => setShow(false)} />
+
       </div>
 
       <TableTransactions transactions={filterByStatus(searchByTitle(transactions))} />

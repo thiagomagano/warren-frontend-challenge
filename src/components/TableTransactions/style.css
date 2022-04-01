@@ -15,6 +15,10 @@ th {
   color: #FFFFFF
 }
 
+td.title {
+  cursor: pointer;
+}
+
 tr:nth-child(odd) {
   background-color: hsl(0, 0%, 90%);
 }
