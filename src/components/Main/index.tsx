@@ -8,6 +8,7 @@ import './style.css'
 const Main = () => {
   const [transactions, setTransactions] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [filterStatus, setFilterStatus] = useState('status')
 
   async function getTransactions() {
     const response = await api.get('/')
@@ -17,12 +18,20 @@ const Main = () => {
   function searchByTitle(transactions: Transactions) {
     return transactions.filter(tr => tr.title.toLowerCase().indexOf(searchTerm) > -1)
   }
+  function filterByStatus(transactions: Transactions) {
+    if (filterStatus != "status") {
+      return transactions.filter(tr => tr.status.toLowerCase().indexOf(filterStatus) > -1)
+    }
+    return transactions
+
+  }
 
 
 
   useEffect(() => {
     getTransactions()
-    //console.log(searchTerm);
+    //setTransactions(filterByStatus(transactions))
+    //setTransactions(searchByTitle(transactions))
   }, [])
 
   //console.log(searchByTitle(transactions))
@@ -33,15 +42,15 @@ const Main = () => {
 
         <input type="search" placeholder="Pesquise pelo título" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
 
-        <select name="status" defaultValue="status">
-          <option value="status" disabled>Status</option>
-          <option value="created">Solicitando</option>
+        <select name="status" value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
+          <option value="status" >Status</option>
+          <option value="processing">Solicitando</option>
           <option value="processed">Processada</option>
-          <option value="processed">Concluida</option>
+          <option value="created">Concluida</option>
         </select>
       </div>
 
-      <TableTransactions transactions={searchByTitle(transactions)} />
+      <TableTransactions transactions={filterByStatus(searchByTitle(transactions))} />
     </main>
   )
 }

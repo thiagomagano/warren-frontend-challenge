@@ -17,7 +17,26 @@ export interface Transactions {
 
 
 const TableTransactions = ({ transactions }: Transactions) => {
+  function translateStatus(status) {
+    if (status === "status") return status
 
+    let statusBr = ''
+
+    switch (status) {
+      case 'processing':
+        statusBr = 'Solicitando'
+        break;
+      case 'processed':
+        statusBr = 'Processada'
+        break;
+      case 'created':
+        statusBr = 'Concluída'
+        break;
+    }
+
+
+    return statusBr
+  }
 
 
   return (
@@ -37,7 +56,7 @@ const TableTransactions = ({ transactions }: Transactions) => {
               <tr key={transaction.id}>
                 <td>{transaction.title}</td>
                 <td>{transaction.description}</td>
-                <td>{transaction.status}</td>
+                <td>{translateStatus(transaction.status)}</td>
                 <td>R$ {transaction.amount}</td>
               </tr>
             )
