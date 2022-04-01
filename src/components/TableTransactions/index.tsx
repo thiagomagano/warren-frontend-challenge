@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import './style.css'
 
 export interface Transaction {
@@ -10,12 +11,15 @@ export interface Transaction {
   from: string,
   to: string
 }
-
-interface TransactionsProps {
+export interface Transactions {
   transactions: Transaction[]
 }
 
-const TableTransactions = ({ transactions }: TransactionsProps) => {
+
+const TableTransactions = ({ transactions }: Transactions) => {
+
+
+
   return (
     <div>
       <table className="transactions-table">
@@ -28,12 +32,6 @@ const TableTransactions = ({ transactions }: TransactionsProps) => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Movimentação Interna</td>
-            <td>Carteira 1 para Carteira 2</td>
-            <td>Processando</td>
-            <td>R$ 1800,00</td>
-          </tr>
           {transactions.map((transaction: Transaction) => {
             return (
               <tr key={transaction.id}>
@@ -44,18 +42,6 @@ const TableTransactions = ({ transactions }: TransactionsProps) => {
               </tr>
             )
           })}
-          {/* <tr>
-            <td>Resgate</td>
-            <td>Warren</td>
-            <td>Solicitada</td>
-            <td>R$ 1200,00</td>
-          </tr>
-          <tr>
-            <td>Depósito</td>
-            <td>Conta</td>
-            <td>Concluída</td>
-            <td>R$ 5000,00</td>
-          </tr> */}
         </tbody>
       </table>
     </div>

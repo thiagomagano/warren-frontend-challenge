@@ -5,3 +5,16 @@ main {
   padding-top: 2rem;
   padding-left: 3.5rem;
 }
+
+.filter-area {
+  display: flex;
+  gap: 2rem;
+}
+
+.filter-area>input {
+  width: 20rem;
+  padding: 0.4rem 0.5rem;
+}
+
+.filter-area>select {
+  padding: 0.5rem 0.2rem;}
