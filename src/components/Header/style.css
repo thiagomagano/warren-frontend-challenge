@@ -1,0 +1,14 @@
+header {
+  margin: 0;
+  width: 100vw;
+  height: 18vh;
+  background-color: hsl(345, 75%, 52%);
+  display: flex;
+  align-items: center;
+}
+
+header>svg {
+  width: 12rem;
+  height: 4rem;
+  margin-left: 3.5rem;
+}
