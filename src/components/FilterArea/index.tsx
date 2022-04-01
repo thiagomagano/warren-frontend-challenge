@@ -6,11 +6,11 @@ const FilterArea = () => {
 
       <input type="search" placeholder="Pesquise pelo título" />
 
-      <select name="status">
-        <option value="valor1" selected disabled>Status</option>
-        <option value="valor1">Solicitando</option>
-        <option value="valor2" selected>Processada</option>
-        <option value="valor3">Concluida</option>
+      <select name="status" defaultValue="status">
+        <option value="status" disabled>Status</option>
+        <option value="created">Solicitando</option>
+        <option value="processed">Processada</option>
+        <option value="processed">Concluida</option>
       </select>
     </div>
   )
