@@ -1,6 +1,8 @@
+import './styles.css'
+
 const FilterArea = () => {
   return (
-    <div>
+    <div className="filter-area">
 
       <input type="search" placeholder="Pesquise pelo título" />
 
