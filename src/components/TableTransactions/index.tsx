@@ -6,7 +6,7 @@ export interface Transaction {
   id: string,
   title: string,
   description: string,
-  status: string,
+  status: "status" | "process" | "processing" | "completed"
   amount: number,
   date: string,
   from: string,
@@ -19,12 +19,12 @@ export interface Transactions {
 
 const TableTransactions = ({ transactions }: Transactions) => {
   const [show, setShow] = useState(false)
-  const [transaction, setTransaction] = useState({});
+  const [transaction, setTransaction] = useState<Transaction>({} as Transaction);
 
   function translateStatus(status) {
     if (status === "status") return status
 
-    let statusBr = ''
+    let statusBr: String;
 
     switch (status) {
       case 'processing':
@@ -59,21 +59,20 @@ const TableTransactions = ({ transactions }: Transactions) => {
         <tbody>
           {transactions.map((transaction: Transaction) => {
             return (
-              <>
-                <tr key={transaction.id}>
-                  <td className='title' onClick={() => handleClick(transaction)}>{transaction.title}</td>
-                  <td>{transaction.description}</td>
-                  <td>{translateStatus(transaction.status)}</td>
-                  <td>R$ {transaction.amount}</td>
-                </tr>
+              <tr key={transaction.id}>
+                <td className='title' onClick={() => handleClick(transaction)}>{transaction.title}</td>
+                <td>{transaction.description}</td>
+                <td>{translateStatus(transaction.status)}</td>
+                <td>R$ {transaction.amount}</td>
+              </tr>
 
-              </>
             )
           })}
         </tbody>
       </table>
 
       <ModalTransaction
+        key={transaction.id}
         show={show}
         onClose={() => setShow(false)}
         title={transaction.title}

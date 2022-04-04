@@ -2,9 +2,9 @@ import { useEffect } from 'react'
 import './styles.css'
 
 const ModalTransaction = ({ show, onClose, title, to, from, amount, status }) => {
+
+
   if (!show) return null
-
-
 
   //Fechando Modal com a Tecla Esc
   const closeOnEscKeyDown = (e) => {
@@ -26,15 +26,24 @@ const ModalTransaction = ({ show, onClose, title, to, from, amount, status }) =>
           <h2 className="modal-title"> {title}</h2>
         </div>
         <div className="modal-body">
-          <div className='modal-status-bar-content'>
-            <span className='status-bar'>{status}</span>
-            <div className='status-group'>
-              <span className='status-label'>Solicitada</span>
-              <span className='status-label'>Processando</span>
-              <span className='status-label'>Concluída</span>
-            </div>
 
+
+          <div className="stepper-wrapper">
+            <div className="stepper-item completed">
+              <div className="step-counter"></div>
+              <div className="step-name">Solicitando</div>
+            </div>
+            <div className={status === 'processed' || status === 'created' ? 'stepper-item completed' : 'stepper-item active'}>
+              <div className="step-counter"></div>
+              <div className="step-name">Processada</div>
+            </div>
+            <div className={status === 'created' ? 'stepper-item completed' : 'stepper-item active'}>
+              <div className="step-counter"></div>
+              <div className="step-name">Concluída</div>
+            </div>
           </div>
+
+
           <div className="modal-transfer-area">
             <div className="transfer-from">
               <h4 className='transfer-title'>Transferendo de:</h4>
@@ -54,10 +63,11 @@ const ModalTransaction = ({ show, onClose, title, to, from, amount, status }) =>
         </div>
 
 
-        <button className="close-modal-button" onClick={onClose}>x</button>
 
+        <button className="close-modal-button" onClick={onClose}>x</button>
       </div>
     </div>
+
   )
 }
 
