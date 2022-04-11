@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { SetStateAction, useState } from 'react'
 import './style.css'
 import ModalTransaction from "../ModalTransaction"
+import formatAmountToReal from '../../utils/formatCurrency'
 
 export interface Transaction {
   id: string,
@@ -21,7 +22,7 @@ const TableTransactions = ({ transactions }: Transactions) => {
   const [show, setShow] = useState(false)
   const [transaction, setTransaction] = useState<Transaction>({} as Transaction);
 
-  function translateStatus(status) {
+  function translateStatus(status: string) {
     if (status === "status") return status
 
     let statusBr: String;
@@ -40,7 +41,7 @@ const TableTransactions = ({ transactions }: Transactions) => {
     return statusBr
   }
 
-  function handleClick(transaction) {
+  function handleClick(transaction: SetStateAction<Transaction>) {
     setShow(true)
     setTransaction(transaction)
   }
@@ -59,28 +60,29 @@ const TableTransactions = ({ transactions }: Transactions) => {
         <tbody>
           {transactions.map((transaction: Transaction) => {
             return (
-              <tr key={transaction.id}>
-                <td className='title' onClick={() => handleClick(transaction)}>{transaction.title}</td>
+              <tr key={transaction.id} onClick={() => handleClick(transaction)}>
+                <td className='title'>{transaction.title}</td>
                 <td>{transaction.description}</td>
                 <td>{translateStatus(transaction.status)}</td>
-                <td>R$ {transaction.amount}</td>
+                <td>{formatAmountToReal(transaction.amount)}</td>
               </tr>
 
             )
           })}
         </tbody>
       </table>
-
-      <ModalTransaction
-        key={transaction.id}
-        show={show}
-        onClose={() => setShow(false)}
-        title={transaction.title}
-        status={transaction.status}
-        amount={transaction.amount}
-        from={transaction.from}
-        to={transaction.to}
-      />
+      {transaction &&
+        <ModalTransaction
+          key={transaction.id}
+          show={show}
+          onClose={() => setShow(false)}
+          title={transaction.title}
+          status={transaction.status}
+          amount={transaction.amount}
+          from={transaction.from}
+          to={transaction.to}
+        />
+      }
     </div >
   )
 }

@@ -1,9 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import formatAmountToReal from '../../utils/formatCurrency'
 import './styles.css'
 
 const ModalTransaction = ({ show, onClose, title, to, from, amount, status }) => {
-
-
   if (!show) return null
 
   //Fechando Modal com a Tecla Esc
@@ -47,16 +46,18 @@ const ModalTransaction = ({ show, onClose, title, to, from, amount, status }) =>
           <div className="modal-transfer-area">
             <div className="transfer-from">
               <h4 className='transfer-title'>Transferendo de:</h4>
+
               <div className='transfer-info'>
                 <span>{from}</span>
-                <span>R$ {amount}</span>
+                <span>{amount.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</span>
               </div>
             </div>
             <div className="transfer-to">
               <h4 className='transfer-title'>Para:</h4>
+
               <div className='transfer-info'>
                 <span>{to}</span>
-                <span>R$ {amount}</span>
+                <span>{amount.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</span>
               </div>
             </div>
           </div>

@@ -28,9 +28,6 @@ const Main = () => {
     return transactions
 
   }
-
-
-
   useEffect(() => {
     getTransactions()
 

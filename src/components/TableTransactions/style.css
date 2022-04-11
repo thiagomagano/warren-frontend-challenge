@@ -15,7 +15,7 @@ th {
   color: #FFFFFF
 }
 
-td.title {
+tr {
   cursor: pointer;
 }
 
