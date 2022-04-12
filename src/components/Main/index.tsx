@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import TableTransactions, { Transactions } from "../TableTransactions";
+import TableTransactions, { Transaction } from "../TableTransactions";
 
 
 import api from '../../service/api'
@@ -7,7 +7,7 @@ import api from '../../service/api'
 import './style.css'
 
 const Main = () => {
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([] as Transaction[]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('status')
 
@@ -18,10 +18,16 @@ const Main = () => {
     setTransactions(response.data)
   }
 
-  function searchByTitle(transactions: Transactions) {
+  function handleFilters(transactions: Transaction[]) {
+    let filterTransaction: Transaction[] = searchByTitle(transactions)
+    filterTransaction = filterByStatus(filterTransaction)
+    return filterTransaction
+  }
+
+  function searchByTitle(transactions: Transaction[]) {
     return transactions.filter(tr => tr.title.toLowerCase().indexOf(searchTerm) > -1)
   }
-  function filterByStatus(transactions: Transactions) {
+  function filterByStatus(transactions: Transaction[]) {
     if (filterStatus != "status") {
       return transactions.filter(tr => tr.status.toLowerCase().indexOf(filterStatus) > -1)
     }
@@ -50,7 +56,7 @@ const Main = () => {
 
       </div>
 
-      <TableTransactions transactions={filterByStatus(searchByTitle(transactions))} />
+      <TableTransactions transactions={handleFilters(transactions)} />
     </main>
   )
 }

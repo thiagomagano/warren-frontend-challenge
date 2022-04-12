@@ -1,4 +1,4 @@
-import { SetStateAction, useState } from 'react'
+import { useState } from 'react'
 import './style.css'
 import ModalTransaction from "../ModalTransaction"
 import formatAmountToReal from '../../utils/formatCurrency'
@@ -13,12 +13,9 @@ export interface Transaction {
   from: string,
   to: string
 }
-export interface Transactions {
-  transactions: Transaction[]
-}
 
 
-const TableTransactions = ({ transactions }: Transactions) => {
+const TableTransactions = ({ transactions }) => {
   const [show, setShow] = useState(false)
   const [transaction, setTransaction] = useState<Transaction>({} as Transaction);
 
@@ -29,19 +26,15 @@ const TableTransactions = ({ transactions }: Transactions) => {
 
     switch (status) {
       case 'processing':
-        statusBr = 'Solicitando'
-        break;
+        return statusBr = 'Solicitando'
       case 'processed':
-        statusBr = 'Processada'
-        break;
+        return statusBr = 'Processada'
       case 'created':
-        statusBr = 'Concluída'
-        break;
+        return statusBr = 'Concluída'
     }
-    return statusBr
   }
 
-  function handleClick(transaction: SetStateAction<Transaction>) {
+  function handleClick(transaction: Transaction) {
     setShow(true)
     setTransaction(transaction)
   }

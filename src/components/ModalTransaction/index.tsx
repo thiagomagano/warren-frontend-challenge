@@ -6,7 +6,7 @@ const ModalTransaction = ({ show, onClose, title, to, from, amount, status }) =>
   if (!show) return null
 
   //Fechando Modal com a Tecla Esc
-  const closeOnEscKeyDown = (e) => {
+  const closeOnEscKeyDown = (e: { charCode: any; keyCode: any }) => {
     if ((e.charCode || e.keyCode) === 27) {
       onClose()
     }
