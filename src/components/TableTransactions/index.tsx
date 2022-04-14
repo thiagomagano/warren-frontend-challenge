@@ -19,19 +19,16 @@ const TableTransactions = ({ transactions }) => {
   const [show, setShow] = useState(false)
   const [transaction, setTransaction] = useState<Transaction>({} as Transaction);
 
-  function translateStatus(status: string) {
+  function getTranslateStatus(status: string) {
     if (status === "status") return status
 
-    let statusBr: String;
-
-    switch (status) {
-      case 'processing':
-        return statusBr = 'Solicitando'
-      case 'processed':
-        return statusBr = 'Processada'
-      case 'created':
-        return statusBr = 'Concluída'
+    const statusBr = {
+      processing: 'Solicitando',
+      processed: 'Processada',
+      created: 'Conclúida'
     }
+
+    return statusBr[status]
   }
 
   function handleClick(transaction: Transaction) {
@@ -56,7 +53,7 @@ const TableTransactions = ({ transactions }) => {
               <tr key={transaction.id} onClick={() => handleClick(transaction)}>
                 <td className='title'>{transaction.title}</td>
                 <td>{transaction.description}</td>
-                <td>{translateStatus(transaction.status)}</td>
+                <td>{getTranslateStatus(transaction.status)}</td>
                 <td>{formatAmountToReal(transaction.amount)}</td>
               </tr>
 
